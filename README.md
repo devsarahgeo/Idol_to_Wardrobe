@@ -15,6 +15,9 @@ Built for a hackathon. While watching a fashion/idol livestream, the viewer capt
 5. **Result** — an overall look-match %, per-item scores, and any missing items are flagged.
 6. **Shop the Gap** — missing/low-match items get 3–5 mock shoppable alternatives with price + similarity %.
 
+### Refer to the Presentation
+You can view the project presentation here: [CloseTheLook Presentation](https://github.com/devsarahgeo/Idol_to_Wardrobe/blob/main/CloseTheLook_new%20(1).pdf)
+
 ---
 
 ## 🏗️ Architecture
