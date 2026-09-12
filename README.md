@@ -23,7 +23,7 @@ You can view the project presentation here: [CloseTheLook Presentation](https://
 
 [Brodcast](https://www.youtube.com/watch?v=aIvVOs3Zjl8)
 
-[no match then shop online](https://youtu.be/XgAhqIW7rDk)
+[no match then shop online](https://youtu.be/GuRm_SAH6UQ)
 
 ---
 
