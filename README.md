@@ -19,11 +19,11 @@ Built for a hackathon. While watching a fashion/idol livestream, the viewer capt
 You can view the project presentation here: [CloseTheLook Presentation](https://github.com/devsarahgeo/Idol_to_Wardrobe/blob/main/CloseTheLook_new%20(1).pdf)
 
 ### Demo
-[subscriber] (https://www.youtube.com/watch?v=aIvVOs3Zjl8)
+[subscriber](https://www.youtube.com/watch?v=aIvVOs3Zjl8)
 
-[Brodcast] (youtube.com/watch?v=aIvVOs3Zjl8&feature=youtu.be)
+[Brodcast](https://www.youtube.com/watch?v=aIvVOs3Zjl8)
 
-[no match then shop online] (https://youtu.be/XgAhqIW7rDk)
+[no match then shop online](https://youtu.be/XgAhqIW7rDk)
 
 ---
 
