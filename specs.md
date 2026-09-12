@@ -1,161 +1,332 @@
-# Idol-to-Wardrobe — Submission Package
-**Runway to Reality: AI Fashion Hackathon — GDG Brooklyn x Vonage — Sept 12, 2026**
+# CloseTheLook — Product & Technical Spec
+
+> Live-commerce web app: watch a livestream, detect the outfit, match it against the user's own closet, and shop only the missing pieces.
 
 ---
 
-## 1. Problem Statement
+## 1. One-Line Summary
 
-**Consumer problem (the hook):**
-You see your favorite idol/celebrity in an outfit and want to recreate the
-look — but you have no idea whether you already own something close, so you
-either buy pieces you didn't need or give up on the look entirely.
-
-**Why it matters beyond one person's closet (the evidence, for judges):**
-- Online apparel return rates run **23–25%** in the US, with **~70% of
-  those returns caused by fit/style mismatch** (Coresight Research 2025).
-- **58% of shoppers "bracket"** — buying multiple items/sizes intending to
-  return most of them (Narvar) — a habit driven by exactly this kind of
-  uncertainty: *"will this actually work for me?"*
-- Every one of those unnecessary purchases is a purchase that a
-  closet-first tool could have prevented by surfacing what the person
-  **already owns** before they ever add something to cart.
-
-**One-line pitch for judges:**
-> "Before you buy anything to copy a look, we show you how close you
-> already are — using clothes you already own."
+While watching a fashion/idol livestream, the user taps "Recreate This Look." Gemini detects the outfit items and attributes from the video frame, the app matches them against the user's digital closet, shows a % match score, and lets the user shop only for the items they don't already own.
 
 ---
 
-## 2. Official Challenge Requirements (confirmed from organizer brief)
+## 2. Core User Flow
 
-- **Both layers are mandatory and must work together:**
-  - **Gemini** = the AI brain (image understanding, style analysis, generation)
-  - **Vonage Video API** = the communication layer (live video makes the AI
-    experience real and shareable)
-- Team of 2–4, no coding experience required, mentors on-site all day
-- Schedule: doors 9:45am → build time starts ~12:00pm → **submissions close
-  2:00pm** → judging 2:00–2:45pm → prizes 2:50pm
-- Example directions given (not required categories, just inspiration):
-  virtual try-on rooms, AI personal stylists, live shopping streams, outfit
-  rating bots, Fashion Week lookbook senders — Idol-to-Wardrobe is closest
-  to "AI personal stylist" + "outfit rating bot"
+1. **Watch** — User is on a live video page (Vonage-powered stream).
+2. **Tap "Recreate This Look"** — Captures the current video frame.
+3. **Detect** — Frame is sent to Gemini API, which returns a structured JSON list of clothing items + attributes.
+4. **Match** — App compares each detected item against the user's closet items (text + image embeddings) and returns a similarity score per item.
+5. **Result Screen** — Shows overall look match %, per-item match %, and flags any missing items.
+6. **Shop the Gap** — For missing/low-match items, show 3–5 similar shoppable products with price + similarity %.
+7. **(Optional wow feature)** — Side-by-side visual: "Idol Look → Your Closet → Your Final Look."
 
 ---
 
-## 3. Submission Checklist (standard Devpost fields — confirm exact form on-site)
+## 3. Tech Stack
 
-- [ ] **Project title** — "Idol-to-Wardrobe" (or your chosen name)
-- [ ] **Tagline** (one sentence — use the pitch line above)
-- [ ] **Description** — problem, what it does, how you built it (see Section 1 + 5)
-- [ ] **"Built With" tags** — `gemini-api`, `vonage-video-api`, `nodejs`,
-      plus your frontend framework
-- [ ] **Screenshots or a short GIF** of the scorecard result — take these
-      *during* your test runs, not last-minute
-- [ ] **Demo video** (2–3 min) — record a clean run-through as a backup
-      even if you're also demoing live; live demos fail, videos don't
-- [ ] **Public GitHub repo link** — make sure it's public before 2:00pm
-- [ ] **Live/hosted link**, if you deploy one (optional but nice to have)
-- [ ] **Team member names**
+| Layer | Tech |
+|---|---|
+| Frontend | React (Vite), Tailwind CSS |
+| Live video | Vonage Video API (session, publisher, subscriber) |
+| Outfit detection | Google Gemini API (multimodal, `gemini-2.5-flash` or `gemini-2.5-pro` vision) |
+| Backend | Node.js + Express (or serverless functions) |
+| Closet storage | JSON/SQLite for hackathon speed (Postgres if time allows) |
+| Image embeddings for matching | Gemini `embedding-001` or CLIP-style similarity (fallback: attribute-based scoring if embeddings are out of scope for time) |
+| Shopping data | Mocked product JSON dataset (no need for real retailer API at hackathon scale) |
+| Hosting | Vercel/Netlify (frontend) + Render/Fly.io (backend) |
 
 ---
 
-## 4. MVP Scope — Tight Demo Slice
-
-**What we're cutting and why:** live closet-scanning-by-video is a great
-idea but too much surface area to build *and* rehearse in ~2 hours. Instead:
-
-- **Wardrobe is pre-seeded**, not scanned live. Before the event (or in
-  the first 15 minutes), photograph 5–6 real clothing items and run them
-  through Gemini once to get structured attributes. This removes the
-  riskiest, most fumble-prone part of a live demo (holding up 6 items to a
-  camera one at a time while judges wait).
-- **Video stays load-bearing** at the two most demo-worthy moments instead:
-  1. The **idol photo enters the app live, on camera**, in the Vonage
-     room — a teammate holds up a phone with the idol's photo, or the photo
-     is shared into frame, and the app captures it straight off the live
-     video feed. (Not a plain file-upload input — that would drop Vonage
-     out of the loop entirely.)
-  2. The **verdict is delivered back into the room live** — read aloud
-     (browser text-to-speech is enough for a 2-hour build; Vonage's Audio
-     Connector is the "if we have time" upgrade) and shown as a live
-     scorecard overlay.
-- **Shopping links are descriptive, not fabricated.** Gemini will happily
-  invent plausible-looking URLs that don't resolve — bad live, worse in a
-  demo video a judge might click. Default to "search for: navy cropped
-  blazer, structured shoulder, wool-blend" rather than a fake clickable
-  link, unless you have time to wire up Gemini's Google Search grounding
-  tool for real results.
-
----
-
-## 5. Flow (what actually happens, step by step)
+## 4. Architecture Overview
 
 ```
-BEFORE THE DEMO (prep, ~15 min)
-  Photograph 5-6 real wardrobe items
-       ↓
-  Gemini analyzes each → structured attributes
-  { category, dominant_color, pattern, material_guess, silhouette }
-       ↓
-  Stored as the "digital wardrobe" (a simple JSON list is enough)
-
-LIVE DEMO
-  Join Vonage video room
-       ↓
-  Hold the idol outfit photo up to the camera
-       ↓
-  Capture a frame from the live video feed
-       ↓
-  Gemini analyzes the frame → same attribute schema as the wardrobe
-       ↓
-  Score idol outfit against every pre-seeded wardrobe item on:
-    color · pattern · material/texture · silhouette/shape ·
-    category · overall visual similarity
-       ↓
-  Rank and display Top 3-4 matches with per-dimension scores
-       ↓
-  Speak the top verdict aloud into the video room
-       ↓
-  For any clearly missing category (e.g. no blazer in wardrobe),
-  show a plain-language "search for this" suggestion
+┌─────────────┐      captures frame       ┌──────────────┐
+│  Vonage      │ ─────────────────────────▶│  Frontend    │
+│  Live Stream │                            │  (React)     │
+└─────────────┘                            └──────┬───────┘
+                                                   │ frame (base64)
+                                                   ▼
+                                          ┌──────────────────┐
+                                          │  Backend API      │
+                                          │  /api/detect-look │
+                                          └────────┬──────────┘
+                                                   │ image + prompt
+                                                   ▼
+                                          ┌──────────────────┐
+                                          │  Gemini API        │
+                                          │  (vision)          │
+                                          └────────┬──────────┘
+                                                   │ structured JSON
+                                                   ▼
+                                          ┌──────────────────┐
+                                          │  Matching Engine   │
+                                          │  vs. User Closet   │
+                                          └────────┬──────────┘
+                                                   │ match scores
+                                                   ▼
+                                          ┌──────────────────┐
+                                          │  Shopping Lookup   │
+                                          │  (missing items)   │
+                                          └────────┬──────────┘
+                                                   │
+                                                   ▼
+                                          ┌──────────────────┐
+                                          │  Result UI         │
+                                          └──────────────────┘
 ```
 
 ---
 
-## 6. Scoring Approach (make this concrete, not hand-wavy)
+## 5. Vonage Integration
 
-Ask Gemini for **structured JSON output** per comparison, not free text —
-this is the single best "technical depth" thing you can point to when
-judges ask how matching works:
+**Goal:** Deliver the live video stream and expose a way to grab the current frame at the moment the user taps the button.
 
-```json
-{
-  "color_score": 82,
-  "pattern_score": 40,
-  "material_score": 65,
-  "silhouette_score": 90,
-  "category_score": 100,
-  "overall_score": 78,
-  "one_line_reason": "Same cropped, structured silhouette and neutral tone; pattern differs."
+### Setup
+- Create a Vonage Video API application (OpenTok-based).
+- Generate: `applicationId`, `sessionId`, `token` (server-side, per user session).
+- Use the Vonage Video Client SDK on the frontend to connect and subscribe to the stream.
+
+### Frame Capture
+- Vonage subscriber renders into a `<video>` element (or canvas via SDK).
+- On button tap, draw the current video frame onto a hidden `<canvas>`:
+
+```js
+function captureFrame(videoEl) {
+  const canvas = document.createElement('canvas');
+  canvas.width = videoEl.videoWidth;
+  canvas.height = videoEl.videoHeight;
+  canvas.getContext('2d').drawImage(videoEl, 0, 0);
+  return canvas.toDataURL('image/jpeg', 0.9); // base64 image
 }
 ```
 
-Compute a weighted overall score client-side (e.g. silhouette + category
-weighted higher than pattern) so you control the ranking logic yourself
-rather than trusting Gemini's own "overall_score" blindly — this also gives
-you something concrete to explain in Q&A.
+### Demo Fallback (recommended for hackathon reliability)
+- Also support a **pre-recorded video file** playing in a `<video>` tag styled to look like a live Vonage stream, with the same frame-capture logic. This de-risks live-stream flakiness during judging while keeping Vonage in the real flow for extra credit (e.g., a real 2-person live demo if time allows).
 
 ---
 
-## 7. Why this framing should score well
+## 6. Gemini Integration
 
-- **Technical execution:** both required APIs are structurally necessary,
-  not decorative — remove either one and the demo breaks.
-- **Real-world usefulness:** tied to a quantifiable, named industry problem
-  (return rates, bracketing), not just "wouldn't this be fun."
-- **Differentiation:** most "AI stylist" submissions will be generic
-  outfit-rating bots; the idol-specific hook plus a real numeric,
-  multi-dimension scorecard is a sharper, more memorable demo beat.
-- **Live-demo safety:** pre-seeded wardrobe removes the biggest live-fail
-  risk (fumbling a multi-item camera scan on stage) while keeping video
-  central at the two moments that actually matter for the story.
+**Goal:** Given an image frame, return structured outfit data.
+
+### Endpoint
+`POST /api/detect-look`
+- Input: `{ image: base64 }`
+- Calls Gemini vision model with a structured-output prompt.
+
+### Gemini Prompt (system/instruction)
+
+```
+You are a fashion analysis engine. Given an image of a person, identify each distinct clothing/accessory item they are wearing.
+
+Return ONLY valid JSON in this exact schema, no markdown, no commentary:
+
+{
+  "items": [
+    {
+      "category": "jacket | top | bottom | shoes | accessory | dress | outerwear",
+      "name": "short descriptive name",
+      "color": "primary color",
+      "secondary_colors": ["..."],
+      "material": "e.g. leather, denim, cotton, knit",
+      "pattern": "solid | striped | plaid | graphic | other",
+      "silhouette": "e.g. cropped, oversized, fitted, wide-leg, slim",
+      "style_tags": ["streetwear", "y2k", "minimalist", ...]
+    }
+  ]
+}
+
+If you cannot confidently detect an item, omit it. Do not hallucinate items not visible in the image.
+```
+
+### Example Gemini API Call (Node.js)
+
+```js
+const response = await fetch(
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + process.env.GEMINI_API_KEY,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{
+        parts: [
+          { text: OUTFIT_DETECTION_PROMPT },
+          { inline_data: { mime_type: "image/jpeg", data: base64Image } }
+        ]
+      }],
+      generationConfig: { responseMimeType: "application/json" }
+    })
+  }
+);
+const data = await response.json();
+const outfitJson = JSON.parse(data.candidates[0].content.parts[0].text);
+```
+
+### Notes
+- Use `responseMimeType: "application/json"` to force clean JSON output — avoids markdown fences.
+- Cache/log every raw Gemini response during dev for debugging.
+- Keep image size reasonable (resize to ~768px longest side before sending) to reduce latency.
+
+---
+
+## 7. Closet Data Model
+
+For the hackathon, seed a mock closet per demo user (no need for real upload flow, though a simple "add item" form is a nice-to-have).
+
+```json
+{
+  "userId": "demo-user-1",
+  "closet": [
+    {
+      "id": "c1",
+      "category": "top",
+      "name": "White fitted crop top",
+      "color": "white",
+      "material": "cotton",
+      "silhouette": "fitted",
+      "pattern": "solid",
+      "image_url": "/closet/white_top.jpg"
+    },
+    {
+      "id": "c2",
+      "category": "bottom",
+      "name": "Blue wide-leg jeans",
+      "color": "blue",
+      "material": "denim",
+      "silhouette": "wide-leg",
+      "pattern": "solid",
+      "image_url": "/closet/blue_jeans.jpg"
+    }
+  ]
+}
+```
+
+Seed 8–12 closet items covering tops, bottoms, jackets, shoes so the demo can hit a believable ~85–95% match with exactly one gap (the jacket) — **script your demo closet to guarantee this outcome.**
+
+---
+
+## 8. Matching Engine
+
+**Goal:** For each detected outfit item, find the best-matching closet item and a similarity %.
+
+### Approach (fastest to build, good enough for demo)
+Weighted attribute-similarity scoring — no embeddings needed:
+
+```js
+function scoreMatch(detectedItem, closetItem) {
+  let score = 0;
+  const weights = { category: 0.3, color: 0.3, material: 0.2, silhouette: 0.1, pattern: 0.1 };
+
+  if (detectedItem.category === closetItem.category) score += weights.category;
+  if (colorsAreSimilar(detectedItem.color, closetItem.color)) score += weights.color;
+  if (detectedItem.material === closetItem.material) score += weights.material;
+  if (detectedItem.silhouette === closetItem.silhouette) score += weights.silhouette;
+  if (detectedItem.pattern === closetItem.pattern) score += weights.pattern;
+
+  return Math.round(score * 100); // percentage
+}
+```
+
+- For each detected item, compute score against every closet item of the same category, take the max.
+- If best score < threshold (e.g., 60%), mark item as **"missing"**.
+- Overall look match % = average of all per-item best scores.
+
+### Stretch upgrade (if time allows)
+Replace rule-based `colorsAreSimilar` and category matching with real embeddings:
+- Generate a text embedding per item (Gemini `embedding-001` on a concatenated description string) for both detected and closet items.
+- Cosine similarity between vectors → match %.
+- More robust, more "AI-native" story for judges, but higher implementation risk — build the rule-based version first, upgrade only if time remains.
+
+---
+
+## 9. Shopping Lookup (Missing Items)
+
+For any item marked "missing," return 3–5 mock shoppable alternatives.
+
+```json
+{
+  "category": "jacket",
+  "results": [
+    { "name": "Black Cropped Leather Jacket", "price": 32, "similarity": 93, "url": "#", "image_url": "/shop/jacket1.jpg" },
+    { "name": "Black Faux Leather Moto Jacket", "price": 38, "similarity": 91, "url": "#", "image_url": "/shop/jacket2.jpg" },
+    { "name": "Cropped Black Biker Jacket", "price": 44, "similarity": 88, "url": "#", "image_url": "/shop/jacket3.jpg" },
+    { "name": "Vegan Leather Crop Jacket", "price": 49, "similarity": 86, "url": "#", "image_url": "/shop/jacket4.jpg" }
+  ]
+}
+```
+
+- Hardcode a small `products.json` dataset keyed by category/color/material combos — no real API needed.
+- Sort by similarity descending.
+- "SHOP" button can just be a styled link (doesn't need real checkout).
+
+---
+
+## 10. Screens / UI Components
+
+1. **Live Stream Screen**
+   - Video player (Vonage or fallback video file)
+   - "🔴 LIVE — Idol Performance" badge
+   - Floating button: "✨ Recreate This Look"
+
+2. **Analyzing State**
+   - Loading animation over captured frame: "Analyzing the look..."
+
+3. **Outfit Detected Screen**
+   - List of detected items with icons (🧥👕👖👟) + attributes
+
+4. **Closet Match Screen**
+   - Per-item match bars/percentages
+   - Big headline: "YOUR LOOK: 92% MATCH"
+
+5. **Missing Item Screen**
+   - "You're missing 1 piece"
+   - Product cards: image, price, similarity %, SHOP button
+
+6. **(Stretch) Side-by-Side Recap**
+   - 3-column visual: Idol Look photo | Your Closet items | Final Look composite
+
+---
+
+## 11. API Endpoints Summary
+
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/api/vonage/session` | Create/return Vonage session + token |
+| POST | `/api/detect-look` | Send frame to Gemini, return outfit JSON |
+| POST | `/api/match-closet` | Compare outfit JSON vs. user's closet, return scores |
+| GET | `/api/closet/:userId` | Fetch user's closet items |
+| POST | `/api/shop-alternatives` | Get shoppable matches for a missing category |
+
+---
+
+## 12. Environment Variables
+
+```
+GEMINI_API_KEY=
+VONAGE_APPLICATION_ID=
+VONAGE_PRIVATE_KEY=
+```
+
+---
+
+## 13. Build Priority (Hackathon Order of Operations)
+
+1. Mock closet data + matching engine (rule-based) — **works with zero external APIs, build first**
+2. Gemini outfit detection on a static test image — validate JSON schema output
+3. Result UI (outfit detected → closet match → missing item → shop) using mock/static data end-to-end
+4. Wire Gemini output into the matching engine (replace static test data)
+5. Vonage live video integration (or fallback pre-recorded video)
+6. Connect "Recreate This Look" button → frame capture → full pipeline
+7. Polish: animations, % match bar transitions, side-by-side recap screen
+8. Rehearse demo with a scripted closet that guarantees a clean "92% match, 1 missing item" moment
+
+---
+
+## 14. Risks & Mitigations
+
+| Risk | Mitigation |
+|---|---|
+| Live Vonage stream unreliable during judging | Use a pre-recorded video styled as "live" as primary demo path |
+| Gemini returns inconsistent JSON | Force `responseMimeType: application/json`, add a JSON-repair fallback parser |
+| Matching feels random/unconvincing | Script the demo closet so real Gemini output reliably produces a clean, impressive match % |
+| Time runs out before shopping feature | Hardcode `products.json`; this is the easiest part to fake convincingly |

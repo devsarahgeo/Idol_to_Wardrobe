@@ -1,0 +1,79 @@
+[
+  {
+    "category": "outerwear",
+    "color": "black",
+    "material": "leather",
+    "results": [
+      { "name": "Black Cropped Leather Jacket", "price": 32, "similarity": 93, "url": "#", "image_url": null },
+      { "name": "Black Faux Leather Moto Jacket", "price": 38, "similarity": 91, "url": "#", "image_url": null },
+      { "name": "Cropped Black Biker Jacket", "price": 44, "similarity": 88, "url": "#", "image_url": null },
+      { "name": "Vegan Leather Crop Jacket", "price": 49, "similarity": 86, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "jacket",
+    "color": "black",
+    "material": "leather",
+    "results": [
+      { "name": "Black Cropped Leather Jacket", "price": 32, "similarity": 93, "url": "#", "image_url": null },
+      { "name": "Black Faux Leather Moto Jacket", "price": 38, "similarity": 91, "url": "#", "image_url": null },
+      { "name": "Cropped Black Biker Jacket", "price": 44, "similarity": 88, "url": "#", "image_url": null },
+      { "name": "Vegan Leather Crop Jacket", "price": 49, "similarity": 86, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "top",
+    "color": "red",
+    "material": "cotton",
+    "results": [
+      { "name": "Red Graphic Oversized Hoodie", "price": 28, "similarity": 90, "url": "#", "image_url": null },
+      { "name": "Crimson Fleece Pullover", "price": 34, "similarity": 87, "url": "#", "image_url": null },
+      { "name": "Red Streetwear Graphic Tee", "price": 22, "similarity": 82, "url": "#", "image_url": null },
+      { "name": "Brick Red Oversized Sweatshirt", "price": 30, "similarity": 79, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "bottom",
+    "color": "black",
+    "material": "denim",
+    "results": [
+      { "name": "Black High-Rise Skinny Jeans", "price": 36, "similarity": 92, "url": "#", "image_url": null },
+      { "name": "Black Stretch Denim Jeans", "price": 32, "similarity": 89, "url": "#", "image_url": null },
+      { "name": "Jet Black Skinny Fit Denim", "price": 40, "similarity": 85, "url": "#", "image_url": null },
+      { "name": "Black Faded Slim Jeans", "price": 28, "similarity": 81, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "shoes",
+    "color": "brown",
+    "material": "leather",
+    "results": [
+      { "name": "Brown Leather Loafers", "price": 45, "similarity": 91, "url": "#", "image_url": null },
+      { "name": "Chestnut Penny Loafers", "price": 52, "similarity": 88, "url": "#", "image_url": null },
+      { "name": "Tan Leather Slip-Ons", "price": 39, "similarity": 84, "url": "#", "image_url": null },
+      { "name": "Brown Almond-Toe Loafers", "price": 47, "similarity": 80, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "dress",
+    "color": "black",
+    "material": "satin",
+    "results": [
+      { "name": "Black Satin Slip Dress", "price": 42, "similarity": 90, "url": "#", "image_url": null },
+      { "name": "Midnight Satin Cowl Dress", "price": 48, "similarity": 87, "url": "#", "image_url": null },
+      { "name": "Black Silky Bias-Cut Dress", "price": 55, "similarity": 84, "url": "#", "image_url": null },
+      { "name": "Onyx Satin Mini Dress", "price": 39, "similarity": 79, "url": "#", "image_url": null }
+    ]
+  },
+  {
+    "category": "accessory",
+    "color": "gold",
+    "material": "metal",
+    "results": [
+      { "name": "Gold Chunky Hoop Earrings", "price": 14, "similarity": 89, "url": "#", "image_url": null },
+      { "name": "Gold Layered Chain Necklace", "price": 18, "similarity": 85, "url": "#", "image_url": null },
+      { "name": "Gold Statement Cuff", "price": 16, "similarity": 82, "url": "#", "image_url": null },
+      { "name": "Gold Mini Hoops", "price": 12, "similarity": 78, "url": "#", "image_url": null }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test:match": "node scripts/testMatch.js",
+    "test:detect": "node scripts/testDetect.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@vonage/auth": "^1.18.1",
+    "@vonage/video": "^1.31.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

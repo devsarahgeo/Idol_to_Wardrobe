@@ -1,0 +1,205 @@
+{
+  "userId": "demo-user-1",
+  "closet": [
+    {
+      "id": "c1",
+      "category": "top",
+      "name": "Navy camp-collar shirt",
+      "color": "navy",
+      "material": "cotton",
+      "silhouette": "boxy",
+      "pattern": "solid",
+      "image_url": "/closet/navy_camp_shirt.jpg"
+    },
+    {
+      "id": "c2",
+      "category": "top",
+      "name": "Striped knit polo",
+      "color": "black",
+      "material": "knit",
+      "silhouette": "fitted",
+      "pattern": "striped",
+      "image_url": "/closet/striped_polo.jpg"
+    },
+    {
+      "id": "c3",
+      "category": "top",
+      "name": "Red satin tie-shoulder top",
+      "color": "red",
+      "material": "satin",
+      "silhouette": "fitted",
+      "pattern": "solid",
+      "image_url": "/closet/red_satin_top.jpg"
+    },
+    {
+      "id": "c4",
+      "category": "bottom",
+      "name": "Khaki chinos",
+      "color": "beige",
+      "material": "cotton",
+      "silhouette": "slim",
+      "pattern": "solid",
+      "image_url": "/closet/khaki_chinos.jpg"
+    },
+    {
+      "id": "c5",
+      "category": "bottom",
+      "name": "Black wide-leg trousers",
+      "color": "black",
+      "material": "wool",
+      "silhouette": "wide-leg",
+      "pattern": "solid",
+      "image_url": "/closet/black_trousers.jpg"
+    },
+    {
+      "id": "c6",
+      "category": "bottom",
+      "name": "Brown straight jeans",
+      "color": "brown",
+      "material": "denim",
+      "silhouette": "straight",
+      "pattern": "solid",
+      "image_url": "/closet/brown_jeans.jpg"
+    },
+    {
+      "id": "c7",
+      "category": "bottom",
+      "name": "Blue slim jeans",
+      "color": "blue",
+      "material": "denim",
+      "silhouette": "slim",
+      "pattern": "solid",
+      "image_url": "/closet/blue_jeans.jpg"
+    },
+    {
+      "id": "c8",
+      "category": "bottom",
+      "name": "Red plaid tweed mini skirt",
+      "color": "red",
+      "material": "tweed",
+      "silhouette": "mini",
+      "pattern": "plaid",
+      "image_url": "/closet/plaid_skirt.jpg"
+    },
+    {
+      "id": "c9",
+      "category": "shoes",
+      "name": "White & green leather sneakers",
+      "color": "white",
+      "material": "leather",
+      "silhouette": "low-top",
+      "pattern": "solid",
+      "image_url": "/closet/white_green_sneakers.jpg"
+    },
+    {
+      "id": "c10",
+      "category": "shoes",
+      "name": "White & blue running sneakers",
+      "color": "white",
+      "material": "mesh",
+      "silhouette": "low-top",
+      "pattern": "solid",
+      "image_url": "/closet/running_sneakers.jpg"
+    },
+    {
+      "id": "c11",
+      "category": "outerwear",
+      "name": "Navy suede zip jacket",
+      "color": "navy",
+      "material": "suede",
+      "silhouette": "boxy",
+      "pattern": "solid",
+      "image_url": "/closet/navy_suede_jacket.jpg"
+    },
+    {
+      "id": "c12",
+      "category": "outerwear",
+      "name": "Tan suede trucker jacket",
+      "color": "brown",
+      "material": "suede",
+      "silhouette": "fitted",
+      "pattern": "solid",
+      "image_url": "/closet/tan_suede_jacket.jpg"
+    },
+    {
+      "id": "c13",
+      "category": "outerwear",
+      "name": "Multicolor tweed cropped jacket",
+      "color": "multicolor",
+      "material": "tweed",
+      "silhouette": "cropped",
+      "pattern": "other",
+      "image_url": "/closet/tweed_jacket_multicolor.jpg"
+    },
+    {
+      "id": "c14",
+      "category": "outerwear",
+      "name": "Red plaid tweed cropped jacket",
+      "color": "red",
+      "material": "tweed",
+      "silhouette": "cropped",
+      "pattern": "plaid",
+      "image_url": "/closet/tweed_jacket_red.jpg"
+    },
+    {
+      "id": "c15",
+      "category": "accessory",
+      "name": "Black ribbed beanie",
+      "color": "black",
+      "material": "knit",
+      "silhouette": "fitted",
+      "pattern": "solid",
+      "image_url": "/closet/beanie.jpg"
+    },
+    {
+      "id": "c16",
+      "category": "accessory",
+      "name": "Black leather buckle belt",
+      "color": "black",
+      "material": "leather",
+      "silhouette": "thin",
+      "pattern": "solid",
+      "image_url": "/closet/black_belt.jpg"
+    },
+    {
+      "id": "c17",
+      "category": "dress",
+      "name": "Burgundy floral embroidered top",
+      "color": "burgundy",
+      "material": "satin",
+      "silhouette": "fitted",
+      "pattern": "floral",
+      "image_url": "/closet/dress_burgundy_floral.jpg"
+    },
+    {
+      "id": "c18",
+      "category": "dress",
+      "name": "Black one-shoulder ruffle dress",
+      "color": "black",
+      "material": "satin",
+      "silhouette": "fit-and-flare",
+      "pattern": "solid",
+      "image_url": "/closet/dress_black_ruffle.jpg"
+    },
+    {
+      "id": "c19",
+      "category": "dress",
+      "name": "Burgundy halter wrap dress",
+      "color": "maroon",
+      "material": "crepe",
+      "silhouette": "fitted",
+      "pattern": "solid",
+      "image_url": "/closet/dress_burgundy_wrap.jpg"
+    },
+    {
+      "id": "c20",
+      "category": "dress",
+      "name": "Black floral applique mini dress",
+      "color": "black",
+      "material": "satin",
+      "silhouette": "mini",
+      "pattern": "floral",
+      "image_url": "/closet/dress_black_floral_mini.jpg"
+    }
+  ]
+}
